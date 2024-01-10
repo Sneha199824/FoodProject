@@ -1,67 +1,48 @@
-import 'react-native-gesture-handler';
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import DrawerNavigator from './src/component/navigationTab/DrawerNavigator';
-import { EmptyCart } from './src/component/cart/EmptyCart';
-import { Image } from 'react-native';
-import Highlight from './src/component/homeScreens/Highlight';
-import Discount from './src/component/homeScreens/Discount';
-import { ListItem } from './src/component/homeScreens/ListItems';
-import { Detailed } from './src/component/homeScreens/Detailed';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import ShoppingScreen from './src/component/server';
+import { Alert, Image,View,TouchableOpacity } from 'react-native';
+import icon from './src/assets/icon/icon';
+import { Styles } from './src/assets/style/Style';
+
 const Stack = createNativeStackNavigator();
-const App = () => {
+
+ const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName='DrawerScreen'
-        screenOptions={{
-          headerShown: true,
-          headerMode: 'screen',
-          headerStyle: { backgroundColor: 'white' },
-          headerTintColor: 'black',
-          headerTitleStyle: { fontWeight: 'bold' },
-        }}>
-        
-        <Stack.Screen
-          name="DrawerNavigator"
-          component={DrawerNavigator}
-          options={{
-            headerShown: false,
-          }} />
-           <Stack.Screen
-          name="EmptyCart"
-          component={EmptyCart}
-          options={{
-            headerTitleAlign:'center',
+      <Stack.Navigator>
+      
+      <Stack.Screen name="KichenWare" component={ShoppingScreen} options={{title:'KichenWare', headerTitleStyle:{
+        fontSize:16,
+        fontWeight:'400'
+      },
+      headerRight: () => (
+        <View style={{flexDirection: "row",justifyContent: 'space-evenly',}}>
+          <TouchableOpacity
+            onPress={() => Alert.alert('Search-Items')}
+            >
+            <Image source={icon.search} tintColor='black' style={Styles.headerIcon}/>
+
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => Alert.alert('like-Me')}
+            >
+            <Image source={icon.heart1} tintColor='black'  style={Styles.headerIcon}/>
             
-          }} />
-           <Stack.Screen
-          name="Discount"
-          component={Discount}
-          options={{
-            headerShown: false,
-          }} />
-          <Stack.Screen
-          name="Highlight"
-          component={Highlight}
-          options={{
-            headerShown: false,
-          }} />
-           <Stack.Screen
-          name="ListItem"
-          component={ListItem}
-          options={{
-           
-          }} />
-           <Stack.Screen
-          name="Detailed"
-          component={Detailed}
-          options={{
-            headerShown: false,
-          }} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => Alert.alert('continue shopping')}
+            >
+            <Image source={icon.shoppingbag}  style={Styles.headerIcon1}/>
+            
+          </TouchableOpacity>
+        </View>
+      )
+      }} />
+      
       </Stack.Navigator>
     </NavigationContainer>
-  )
-}
+  );
+};
 export default App;
